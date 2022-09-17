@@ -1,4 +1,11 @@
 def Main_Menu():
+    '''
+    The main menu part of the program where the user can interact with 3 different options
+    The 1st option takes the user to create the different tables that is Menu and the chef table
+    In the 2nd option,the user has the ability to interact with the restaurant itself as a customer
+    The 3rd option exist and stops the program'''
+
+    
     while True:
         print()
         print('Main Menu')
@@ -26,6 +33,13 @@ def Main_Menu():
             print()
 
 def Adminstration_Screen():
+    '''
+    Here,the user has 2 options to choose between which table the user wants to use between chef and menu
+    So that the user can add,modify and delete the required data in the table
+    The final option takes you back to the main menu function'''
+
+    
+
         while True:
             print()
             print('Adminstration')
@@ -52,7 +66,32 @@ def Adminstration_Screen():
                 print('You have entered a wrong data type.Type only integer values accordingly')
                 print()
 
-def Menu():    
+def Menu():
+    '''
+    The table Menu deals with various food items present in any restaraunt
+    It contains Food_Code,Food_Name,Cost has as its columns where
+
+    Food_Code--->Contains the code (which is in a string format) of a food item 
+    Food_Name----->Contains the name of the food
+    Cost----->The cost of  food item
+
+
+    The numbers in the side correspond to the options in the Menu function
+
+    1.It adds the data in the table Menu,by accepting a number from the user so that the user can add different data 'n' number of times
+    It asks the user to enter corresponding data according to the table's column
+
+    2.It asks the user for which food code is to be updated and then it gives the user 2 options to update the data in terms of food_name or cost
+
+    3.It asks the user to delete all the data in Menu or the user can accept a food code and the row corresponding to that food_code gets
+    deleted before confirming with the user.
+
+    4.It displays all the data in Menu
+    5.Takes the user to Adminstration_Screen() Function'''
+
+
+
+    
     cursor.execute('''CREATE TABLE IF NOT EXISTS Menu
 (food_code VARCHAR(7) NOT NULL PRIMARY KEY,
 food_item_name VARCHAR(30) NOT NULL,
@@ -247,7 +286,21 @@ cost INT NOT NULL)''')
             print()
 
 
-def Customer_Service():    
+def Customer_Service():
+    '''
+    Here the user comes to the main segment.Here the user has 3 main options
+
+    1.The menu is displayed to the user and the user will have to choose
+    Once he enters the right food name,a token number is given to the user and the user has to wait till the food is ready
+
+    2.Here once the food is ready the user is given a message that the food is ready
+    (Status of food is being changed in Chef() function)
+
+    3.Here the user can comment,rate about the experience of the restaurant
+    From here the user can make a new comment or read an already existing comment
+
+    4.It takes the user back to Main_Menu() function'''
+
     cursor.execute('SHOW TABLES')
     dzxu=cursor.fetchall()
     try:
@@ -432,6 +485,23 @@ def Customer_Service():
         
 
 def Chef():
+    '''
+    This function is where the food is getting ready and delivered to the user
+    It also contains the table chef where the columns are Token_no,food_code,quantity,status
+
+    Token_no---->A randomly generated number from 1 to 100
+    food_code------> The food item code that the user has ordered in Customer_Service() is converted to its food code
+    quantity------>The quantity required for a food item
+    status----->Its a status that tells whether the food is ready or not by default it is not ready
+
+    1.Here the user can see all the information about Chef
+
+    2.The user changes the status from NotReady to Ready so that when the user returns to customer_service() and types the corresponding token number,
+    it displays the message that the food is ready and the row containing the corresponding token_no gets deleted
+
+    3.Takes you back to Adminstration_Screen()'''
+    
+    
     cursor.execute('''CREATE TABLE IF NOT EXISTS CHEF
 (Token_no int not null,
 food_code varchar(30) not null,
